@@ -6,31 +6,29 @@
 		<script src="./js/jquery-3.2.1.min.js"></script>
 		<script src="./js/jscolor.js"></script>
 		<script src="./js/hexconv.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="./js/angular.js"></script>
 		<script src="./js/compliment_angular.js"></script>
 		<meta charset="UTF-8">
 	</head>
 
-	<body id="body">
-		<div class="miniheader" ng-app="header" ng-controller="myCtrl">
-			<span *ngFor"let color of history; let i = index" id="history{{i}}"><b2>{{color}}</b2></span>
+	<body id="body"  ng-app="Compliment" ng-controller="MainController">
+		<div class="miniheader">
+			<span class="headercontainer" ng-repeat="color in history | reverse" id="history"><b2>{{color}}</b2></span>
 		</div>
 		<div class="landtext"><t1><br>COMPLIMENT</t1></div>
 		<form id="mainform">
 	  <label for="fname"><b1>Main Colour</b1></label>
 		<br>
-	  <input type="text" id="thisrgb" onchange="errorhandle()" placeholder="RGB">
+	  <input type="text" id="thisrgb" onchange="errorhandle()" placeholder="{{inputPH}}">
 		<br>
 		<button class="jscolor{valueElement:'hexval'}" onblur="hexToRgb()">Colour Picker</button>
-
 		<input type="submit" value="Compliment Me" id="submit_button" onclick="hexToComplimentary()">
 		</form>
-
-		<script src="jscolor.js"></script>
+		<button ng-click="play = !play">{{playstate()}}</button>
 		<div class="pickercontainer">
 
 			<br>
-			<input type="text" id="hexval" style="display:none;"placeholder="HEX">
+			<input type="text" id="hexval" style="display:none;" placeholder="HEX">
 		</div>
 
 		<div class="landtext">
@@ -81,8 +79,6 @@ function hexToRgb(){
 	}
 
 	function copyrgb(history){
-		angular.element(document.getElementById('miniheader')).scope().addHistory(history);
-
 		$("#thisrgb").val(historyrgb);
 		alert(historyrgb);
 		hexToComplimentary();
