@@ -12,9 +12,9 @@ var randomcolours = setInterval(function() {
 var rRGB1 = "rgb(" + rR + ","+ rG + "," + rB + ")";
 //set history
 timercount = timercount + 1;
-var history = $(".miniheader").html();
-var newhist = "<span onclick='copyrgb(" + timercount + ")' id='history" + timercount + "' class='headercontainer'><b2>"+ rRGB1 + "</b2></span> " + history;
-$(".miniheader").html(newhist);
+//var history = $(".miniheader").html();
+//var newhist = "<span onclick='copyrgb(" + timercount + ")' id='history" + timercount + "' class='headercontainer'><b2>"+ rRGB1 + "</b2></span> " + history;
+//$(".miniheader").html(newhist);
 
   $("#thisrgb").attr("placeholder", rRGB1);
   // Convert RGB to HSL
@@ -100,7 +100,7 @@ $("body").css({'background': grad, 'background-size': '200% 200%', '-webkit-anim
  * @param  [String] hex : hex value
  * @return [String] : complimentary color as hex value
  */
- 
+
 function hexToComplimentary(){
   var rgb = $('#thisrgb').val();
 

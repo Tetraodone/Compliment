@@ -6,12 +6,14 @@
 		<script src="./js/jquery-3.2.1.min.js"></script>
 		<script src="./js/jscolor.js"></script>
 		<script src="./js/hexconv.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<script src="./js/compliment_angular.js"></script>
 		<meta charset="UTF-8">
 	</head>
 
-	<body id="body" onload="pageloaded()">
-		<div class="miniheader">
-
+	<body id="body">
+		<div class="miniheader" ng-app="header" ng-controller="myCtrl">
+			<span *ngFor"let color of history; let i = index" id="history{{i}}"><b2>{{color}}</b2></span>
 		</div>
 		<div class="landtext"><t1><br>COMPLIMENT</t1></div>
 		<form id="mainform">
@@ -25,11 +27,11 @@
 		</form>
 
 		<script src="jscolor.js"></script>
-<div class="pickercontainer">
+		<div class="pickercontainer">
 
-	<br>
-	<input type="text" id="hexval" style="display:none;"placeholder="HEX">
-</div>
+			<br>
+			<input type="text" id="hexval" style="display:none;"placeholder="HEX">
+		</div>
 
 		<div class="landtext">
 			<div class="compcontainer">
@@ -37,8 +39,6 @@
 					<t2 id="randcompliment">Hi</t2>
 				</div>
 			</div>
-
-
 
 			<br> <br>
 			<b1>Compimentary Color</b1><br><b1 id="result"></b1>
@@ -79,13 +79,9 @@ function hexToRgb(){
 			$("#submit_button").removeAttr('disabled');
 		}
 	}
+
 	function copyrgb(history){
-		/* Get the text field */
-		var historyrgb = $("#history" + history).html();
-		historyrgb = historyrgb.replace("<b2>", "");
-		historyrgb = historyrgb.replace("</b2>", "");
-		historyrgb = historyrgb.replace("rgb(", "");
-		historyrgb = historyrgb.replace(")", "");
+		angular.element(document.getElementById('miniheader')).scope().addHistory(history);
 
 		$("#thisrgb").val(historyrgb);
 		alert(historyrgb);
