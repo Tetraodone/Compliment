@@ -34,7 +34,7 @@
 		<div class="landtext">
 			<div class="compcontainer">
 				<div class="typeeffect">
-					<t2 id="randcompliment">Hi</t2>
+					<t2 id="randcompliment">{{compliment}}</t2>
 				</div>
 			</div>
 
@@ -52,7 +52,7 @@
 
 
 <script>
-	var compliments = ["I love you :)", "Have a good day <3", "You are doing great ; )", "Keep up the good work <3", "You are amazing", "You are the best!", "You look great omg.", "You are beautiful!"];
+var compliments = ["I love you :)", "Have a good day <3", "You are doing great ; )", "Keep up the good work <3", "You are amazing", "You are the best!", "You look great omg.", "You are beautiful!"];
 var isheader = false;
 
 function hexToRgb(){
@@ -101,9 +101,6 @@ function hexToRgb(){
 	  function setcolour(compcolor){
 	    //get main rgb
 	    var myrgb = $('#thisrgb').val();
-
-
-
 	    myrgb = "rgb(" + myrgb + ")";
 	    var grad = "linear-gradient( 0deg, " + myrgb + ", " + compcolor + ")";
 	    $("body").css("background", grad);

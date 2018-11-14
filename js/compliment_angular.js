@@ -10,6 +10,8 @@ app.controller('MainController', function($scope, $interval) {
     $scope.history = [];
     $scope.inputPH='rgb()';
     $scope.play = true;
+    $scope.compliments = ["I love you :)", "Have a good day <3", "You are doing great ; )", "Keep up the good work <3", "You are amazing", "You are the best!", "You look great omg.", "You are beautiful!"];
+    $scope.compliment = "Hi there!"
 
     $scope.playstate = function(){
       if(this.play){
@@ -28,13 +30,11 @@ app.controller('MainController', function($scope, $interval) {
     $interval(function () {
       if($scope.play){
       //Generate random numbers until higher than Black Threshold
-      var greydiff = 400;
       do{
         lop = false;
         var rR = Math.floor((Math.random() * 255) + 1);
         var rG = Math.floor((Math.random() * 255) + 1);
         var rB = Math.floor((Math.random() * 255) + 1);
-        //greydiff = (rR-rG);
       }while(rR < 50 || rG <50 || rB <50);
 
       //Create string for history and send to addHeader function
@@ -107,9 +107,11 @@ app.controller('MainController', function($scope, $interval) {
       if(balance<390){
         $("b1").css({'color':'white'});
         $("T1").css({'color':'white'});
+        $("t2").css({'color':'white'});
       }else{
         $("b1").css({'color':'black'});
         $("T1").css({'color':'black'});
+        $("t2").css({'color':'black'});
       }
       var compcolor = "rgb(" + rgbstring + ")";
 
@@ -117,6 +119,12 @@ app.controller('MainController', function($scope, $interval) {
     grad = "linear-gradient( 0deg, " + rRGB1 + ", " + compcolor + ")";
 
     $("body").css({'background': grad, 'background-size': '200% 200%', '-webkit-animation': 'AnimationName 4s ease infinite', 'animation': 'AnimationName 4s ease infinite', 'transition': 'opacity 5s ease-in-out'});
+    $scope.doCompliment();
+
+    //Limit history to 20 colours to save memory
+    if($scope.history.length > 20){
+      $scope.history.shift()
+    }
   }}, 4000);
 
   $scope.hextToComplimentary = function(){
@@ -209,4 +217,7 @@ app.controller('MainController', function($scope, $interval) {
       setcolour(compcolor)
   }
 
+  $scope.doCompliment = function (){
+    this.compliment = this.compliments[Math.floor(Math.random() * this.compliments.length)];
+  }
 });
