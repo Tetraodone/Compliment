@@ -1,216 +1,248 @@
-@charset "utf-8";
-/* CSS Document */
-
+/* SCSS Document */
 html {
-    height: 100%;
-}
-.footer{
-  width:100%;
-  position:fixed;
-  height:auto;
-  background-color:rgba(255, 255, 255, 0.2);
-  text-align:center;
-  bottom:0px;
-  display:inline-block;
+  height: 100%;
 }
 
-.colorresult{
-  background-color:white;
-  border-radius:500px;
-  width:
-}
-
-.footercontainer{
-  display:inline-block;
-  margin-left:auto;
-  padding-top:2vh;
-  padding-bottom:2vh;
-}
-.miniheader{
-  width:100%;
-  height:auto;
-  padding-top:4px;
-  padding-bottom:4px;
-  padding-left:4px;
+.footer {
+  width: 100%;
+  position: fixed;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.2);
+  text-align: center;
+  bottom: 0px;
   display: inline-block;
-  position:fixed;
-  background-color:rgba(255, 255, 255, 0.2);
-  text-align:left;
-  top:0px;
+}
+.footer .footercontainer {
+  display: inline-block;
+  margin-left: auto;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.colorresult {
+  background-color: white;
+  border-radius: 500px;
+}
+
+.miniheader {
+  width: 100%;
+  height: auto;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 4px;
+  display: inline-block;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.2);
+  text-align: left;
+  top: 0px;
   white-space: nowrap;
-    overflow-x: auto;
+  overflow-x: auto;
 }
-.headercontainer{
-  padding:5px 5px 5px 5px;
+
+.headercontainer {
+  padding: 5px 5px 5px 5px;
   display: inline-block;
-  width:auto;
-  height:auto;
-  border-radius:10px;
-  background-color:rgba(0, 0, 0, 0.1);
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.1);
   cursor: pointer;
   animation: popin ease 3s;
 }
-.headercontainer:hover{
-  background-color:rgba(0, 0, 0, 0.2);
+.headercontainer:active {
+  background-color: rgba(0, 0, 0, 0.05);
 }
-.headercontainer:active{
-  background-color:rgba(0, 0, 0, 0.05);
+.headercontainer:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 body {
-	background: linear-gradient(0deg, #4ad2af, #d27f4a);
-	background-size: 400% 400%;
-	transition:0.5s;
-    height: 100%;
-    margin: 0;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-	-webkit-animation: AnimationName 4s ease infinite;
-	animation: AnimationName 4s ease infinite;
-
+  background: linear-gradient(0deg, #4ad2af, #d27f4a);
+  background-size: 400% 400%;
+  transition: 0.5s;
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -webkit-animation: AnimationName 4s ease infinite;
+  animation: AnimationName 4s ease infinite;
 }
-	@-webkit-keyframes AnimationName {
-    0%{background-position:50% 0%}
-    50%{background-position:50% 100%}
-    100%{background-position:50% 0%}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
 }
 @keyframes AnimationName {
-    0%{background-position:50% 0%}
-    50%{background-position:50% 100%}
-    100%{background-position:50% 0%}
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
 }
 @keyframes popin {
-  0%{left:-100%;}
-  100%{left:0;}
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
 }
-
-form{
-	width:40%;
-	height:20%;
-	text-align:center;
-	padding-left:30%
+form {
+  width: 40%;
+  height: 20%;
+  text-align: center;
+  padding-left: 30%;
 }
 
 input[type=text] {
-    width: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-	border-radius:5px;
-	text-align:center;
-	background-color:rgba(255,255,255,0.4)
-
-}
-.landtext{
-	width:100%;
-	height:150px;
-	text-align:center;
-
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
-.pickercontainer{
-  text-align:center;
-  width:auto;
-  overflow:hidden;
+.landtext {
+  width: 100%;
+  height: 150px;
+  text-align: center;
 }
-.compcontainer{
-display:flex;
-justify-content:center;
-width:100%;
 
+.pickercontainer {
+  text-align: center;
+  width: auto;
+  overflow: hidden;
 }
+
+.compcontainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .typeeffect t2 {
-  display:inherit;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid black; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: .05em; /* Adjust as needed */
-  animation:
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
+  display: inherit;
+  overflow: hidden;
+  /* Ensures the content is not revealed until the animation */
+  border-right: 0.15em solid black;
+  /* The typwriter cursor */
+  white-space: nowrap;
+  /* Keeps the content on a single line */
+  margin: 0 auto;
+  /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.05em;
+  /* Adjust as needed */
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
 }
 
 /* The typing effect */
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
-
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: black; }
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: black;
+  }
+}
+t1, t2 {
+  font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+  font-weight: bolder;
+  font-size: 50px;
+  opacity: 0.7;
 }
 
-t1, t2{
-	font-family:"Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
-	font-weight:bolder;
-	font-size: 50px;
-	opacity:0.7;
-}
-b1{
-	font-family:"Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
-	font-weight:normal;
-	font-size: 18px;
-	opacity:0.7;
-}
-b2{
-	font-family:"Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
-	font-weight:normal;
-	font-size: 18px;
-	opacity:0.7;
-}
-i{
-  opacity:0.8;
-}
-.break{
-  display:none;
+b1 {
+  font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+  font-size: 18px;
+  opacity: 0.7;
 }
 
-@media screen and (max-width: 480px) and (min-height:680px){
+b2 {
+  font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+i {
+  opacity: 0.8;
+}
+
+.break {
+  display: none;
+}
+
+@media screen and (max-width: 480px) and (min-height: 680px) {
   input[type=text] {
-      width: 90%;
-      padding: 20px 30px;
-      font-size:3vh;
+    width: 90%;
+    padding: 20px 30px;
+    font-size: 3vh;
   }
 
-  form{
-  	width:90%;
-  	height:20%;
-  	text-align:center;
-  	padding-left:5%;
-    padding-bottom:3vh;
-  }
-  .break{
-    display:inline;
-  }
-  t1{
-   font-size:6vh;
-  }
-  t2{
-    font-size:5vh;
-    padding-left:1vh;
-    padding-right:1vh;
+  form {
+    width: 90%;
+    height: 20%;
+    text-align: center;
+    padding-left: 5%;
+    padding-bottom: 3vh;
   }
 
-  b1{
-    font-size:5vh;
+  .break {
+    display: inline;
   }
 
-  b2{
-    font-size:3vh;
-  }
-  #submit_button{
-    font-size:10vh;
+  t1 {
+    font-size: 6vh;
   }
 
-  .footercontainer{
-    padding-top:0px;
-  }
-  hm{
-    display:none;
+  t2 {
+    font-size: 5vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
   }
 
+  b1 {
+    font-size: 5vh;
+  }
 
+  b2 {
+    font-size: 3vh;
+  }
+
+  #submit_button {
+    font-size: 10vh;
+  }
+
+  .footercontainer {
+    padding-top: 0px;
+  }
+
+  hm {
+    display: none;
+  }
 }
+
+/*# sourceMappingURL=main.css.map */
