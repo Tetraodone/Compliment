@@ -8,22 +8,22 @@ app.filter('reverse', function() {
 
 app.controller('MainController', function($scope, $interval) {
     $scope.history = [];
+    $scope.lastCompliment = '';
     $scope.inputPH='rgb()';
     $scope.play = true;
     $scope.compliments = ["I love you :)", "Have a good day <3", "You are doing great ; )", "Keep up the good work <3", "You are amazing", "You are the best!", "You look great omg.", "You are beautiful!"];
     $scope.compliment = "Hi there!"
-
-    $scope.playstate = function(){
-      if(this.play){
-        msg = 'Pause random Compliments';
-      }else{
-        msg = 'Resume random Compliments';
-      }
-      return msg
-    }
+    $scope.compColor1 = '#4ad2af';$scope.compColor2 = '#d27f4a';
 
     $scope.pause = function(){
       this.play = !this.play;
+
+      //using opacity because animation needs to continue playing
+      if(this.play){
+        $('.loading').css({'opacity':'.3'})
+      }else{
+        $('.loading').css({'opacity':'0'})
+      }
     }
 
     //Generate random Compliment Gradient every 4 seconds
@@ -109,19 +109,22 @@ app.controller('MainController', function($scope, $interval) {
         $("T1").css({'color':'white'});
         $("t2").css({'color':'white'});
         $('#thisrgb').addClass('whitePlaceHolder');
+        $('.loading').css({'background-color':'white'});
         $('label').css({'border-color':'transparent transparent transparent white'});
       }else{
         $("b1").css({'color':'black'});
         $("T1").css({'color':'black'});
         $("t2").css({'color':'black'});
         $('#thisrgb').removeClass('whitePlaceHolder');
+        $('.loading').css({'background-color':'black'});
         $('label').css({'border-color':'transparent transparent transparent black'});
       }
       var compcolor = "rgb(" + rgbstring + ")";
 
       $("#result").html(compcolor);
     grad = "linear-gradient( 0deg, " + rRGB1 + ", " + compcolor + ")";
-
+    $scope.compColor1 = rRGB1;
+    $scope.compColor2 = compcolor;
     $("body").css({'background': grad, 'background-size': '200% 200%', '-webkit-animation': 'AnimationName 4s ease infinite', 'animation': 'AnimationName 4s ease infinite', 'transition': 'opacity 5s ease-in-out'});
     $scope.doCompliment();
 
@@ -224,7 +227,14 @@ app.controller('MainController', function($scope, $interval) {
   }
 
   $scope.doCompliment = function (){
+    do {
     this.compliment = this.compliments[Math.floor(Math.random() * this.compliments.length)];
+    }
+    while (this.compliment===this.lastCompliment);
+
+
+
+    this.lastCompliment = this.compliment
     $('#randcompliment').animateCss('jello', function() {
       $('#randcompliment').removeClass('animated jello');
     });

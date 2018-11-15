@@ -13,6 +13,20 @@
 	</head>
 
 	<body id="body"  ng-app="Compliment" ng-controller="MainController">
+		<span class="swatch">
+			<div class="topColor" style="background:{{compColor1}}">
+				<b2>{{compColor1}}</b2>
+			</div>
+			<div class="bottomColor" style="background:{{compColor2}}">
+				<b2>{{compColor2}}</b2>
+			</div>
+		</span>
+		<span style="position:fixed;right:20px;top:60px;">
+			<label class="switch">
+			  <input id="relax" type="checkbox">
+			  <span class="slider round"></span>
+			</label>
+		</span>
 		<div class="miniheader">
 			<span class="headercontainer" ng-repeat="color in history | reverse" id="history"><b2>{{color}}</b2></span>
 		</div>
@@ -27,7 +41,7 @@
 		</form>
 		<div class="playpause">
 			<abbr title="Play/Pause random compliments.">
-			<input type="checkbox" value="None" id="playpause" name="check" ng-click="play = !play"/>
+			<input type="checkbox" value="None" id="playpause" name="check" ng-click="pause();"/>
 			<label for="playpause" tabindex=1></label>
 			</abbr>
 		</div>
@@ -47,6 +61,7 @@
 			</div>
 
 			<div class="footer">
+				<span class="loading"></span>
 				<div class="footercontainer">
 				<b2>By Corey Bourke  <hm> &nbsp; &nbsp; - &nbsp; &nbsp;</hm>  <div class="break"><b1><br></b1></div><i> Animation Credit &nbsp;: &nbsp;<a href="https://www.gradient-animator.com/">Gradient Animator</a></i></b2>
 			</div>
@@ -56,8 +71,27 @@
 
 
 <script>
-var compliments = ["I love you :)", "Have a good day <3", "You are doing great ; )", "Keep up the good work <3", "You are amazing", "You are the best!", "You look great omg.", "You are beautiful!"];
-var isheader = false;
+	$(document).ready(function() {
+	    $('#relax').change(function() {
+	        if($(this).is(":checked")) {
+	            $('.miniheader').hide('.3');
+							$('.footer').hide('.3');
+							$('.swatch').hide('.3');
+							$('#mainform').hide('.3');
+							$('.landtext').find('b1').hide('.3');
+							$('.compcontainer').css({'margin-top': '20vh'});
+							$('.slider').css('opacity', '0.4');
+	        } else{
+						$('.miniheader').show('.3');
+						$('.footer').show('.3');
+						$('.swatch').show('.3');
+						$('#mainform').show('.3');
+						$('.landtext').find('b1').show('.3');
+						$('.compcontainer').css({'margin-top': '0'});
+						$('.slider').css('opacity', '1');
+					}
+	    });
+	});
 
 function hexToRgb(){
 
