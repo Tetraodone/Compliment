@@ -108,10 +108,14 @@ app.controller('MainController', function($scope, $interval) {
         $("b1").css({'color':'white'});
         $("T1").css({'color':'white'});
         $("t2").css({'color':'white'});
+        $('#thisrgb').addClass('whitePlaceHolder');
+        $('label').css({'border-color':'transparent transparent transparent white'});
       }else{
         $("b1").css({'color':'black'});
         $("T1").css({'color':'black'});
         $("t2").css({'color':'black'});
+        $('#thisrgb').removeClass('whitePlaceHolder');
+        $('label').css({'border-color':'transparent transparent transparent black'});
       }
       var compcolor = "rgb(" + rgbstring + ")";
 
@@ -213,11 +217,17 @@ app.controller('MainController', function($scope, $interval) {
       $("t1").css({'color':'white'});
       $("b2").css({'color':'white'});
       $("t2").css({'color':'white'});
+      $('input').css({'color':'white', 'border-color':'white !important'});
+      $('label').css({'border-color':'white'});
     }
       setcolour(compcolor)
   }
 
   $scope.doCompliment = function (){
     this.compliment = this.compliments[Math.floor(Math.random() * this.compliments.length)];
+    $('#randcompliment').animateCss('jello', function() {
+      $('#randcompliment').removeClass('animated jello');
+    });
   }
+
 });
