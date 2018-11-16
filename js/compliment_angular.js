@@ -15,6 +15,34 @@ app.controller('MainController', function($scope, $interval) {
     $scope.compliment = "Hi there!"
     $scope.compColor1 = '#4ad2af';$scope.compColor2 = '#d27f4a';
 
+    $scope.randomRGB = function(){
+      //Generate random numbers until higher than Black Threshold
+      do{
+        var rR = Math.floor((Math.random() * 255) + 1);
+        var rG = Math.floor((Math.random() * 255) + 1);
+        var rB = Math.floor((Math.random() * 255) + 1);
+      }while(rR < 50 || rG <50 || rB <50);
+
+      return new $scope.rgb(rR, rG, rB);
+    }
+
+    $scope.rgb = function(_r, _g, _b){
+      this.r = function(){
+        return _r;
+      }
+      this.g = function(){
+        return _g;
+      }
+      this.b = function(){
+        return _b;
+      }
+      this.fullrgb = function(){
+        var s;
+        s = 'rgb(' + _r + ',' + _g +',' + _b + ')';
+        return s;
+      }
+    }
+
     $scope.pause = function(){
       this.play = !this.play;
 
@@ -29,23 +57,17 @@ app.controller('MainController', function($scope, $interval) {
     //Generate random Compliment Gradient every 4 seconds
     $interval(function () {
       if($scope.play){
-      //Generate random numbers until higher than Black Threshold
-      do{
-        lop = false;
-        var rR = Math.floor((Math.random() * 255) + 1);
-        var rG = Math.floor((Math.random() * 255) + 1);
-        var rB = Math.floor((Math.random() * 255) + 1);
-      }while(rR < 50 || rG <50 || rB <50);
+      //place new code here #TODO
+      var randomColor = $scope.randomRGB();
 
       //Create string for history and send to addHeader function
-      var rRGB1 = "rgb(" + rR + ","+ rG + "," + rB + ")";
-      $scope.history.push(rRGB1);
+      $scope.history.push(randomColor.fullrgb());
       timercount = timercount + 1;
-      $("#thisrgb").attr("placeholder", rRGB1);
+      $("#thisrgb").attr("placeholder", randomColor.fullrgb());
 
       // Convert RGB to HSL
       // Adapted from answer by 0x000f http://stackoverflow.com/a/34946092/4939630
-      r = rR; g = rG; b = rB;
+      r = randomColor.r(); g = randomColor.g(); b = randomColor.b();
       r /= 255.0;
       g /= 255.0;
       b /= 255.0;
@@ -122,8 +144,8 @@ app.controller('MainController', function($scope, $interval) {
       var compcolor = "rgb(" + rgbstring + ")";
 
       $("#result").html(compcolor);
-    grad = "linear-gradient( 0deg, " + rRGB1 + ", " + compcolor + ")";
-    $scope.compColor1 = rRGB1;
+    grad = "linear-gradient( 0deg, " + randomColor.fullrgb() + ", " + compcolor + ")";
+    $scope.compColor1 = randomColor.fullrgb();
     $scope.compColor2 = compcolor;
     $("body").css({'background': grad, 'background-size': '200% 200%', '-webkit-animation': 'AnimationName 4s ease infinite', 'animation': 'AnimationName 4s ease infinite', 'transition': 'opacity 5s ease-in-out'});
     $scope.doCompliment();
