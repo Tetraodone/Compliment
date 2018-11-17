@@ -110,8 +110,41 @@ app.controller('MainController', function($scope, $interval) {
     }
 
     $scope.applyGradient = function(o,c){
+      //push new colour to history
+      $scope.history.push(o.fullrgb());
+      $("#thisrgb").attr("placeholder", o.fullrgb());
+
+      var theme;
+      if(o.balance()<390){
+        theme = 'white';
+        $('#thisrgb').addClass('whitePlaceHolder');
+      }else{
+        theme = 'black';
+        $('#thisrgb').removeClass('whitePlaceHolder');
+      }
+
+      $("b1").css({'color':theme});
+      $("T1").css({'color':theme});
+      $("t2").css({'color':theme});
+      $('.loading').css({'background-color':theme});
+      $('label').css({'border-color':'transparent transparent transparent ' + theme});
+
+      //dispay result and save compColor1 and 2
+      $("#result").html(c.fullrgb());
+      $scope.compColor1 = o.fullrgb();
+      $scope.compColor2 = c.fullrgb();
+
+      //Apply background
       grad = "linear-gradient( 0deg, " + o.fullrgb() + ", " + c.fullrgb() + ")";
       $("body").css({'background': grad, 'background-size': '200% 200%', '-webkit-animation': 'AnimationName 4s ease infinite', 'animation': 'AnimationName 4s ease infinite', 'transition': 'opacity 5s ease-in-out'});
+
+      //generate random compliment
+      $scope.doCompliment();
+
+      //Limit history to 20 colours to save memory
+      if($scope.history.length > 20){
+        $scope.history.shift()
+      }
     }
 
     $scope.pause = function(){
@@ -129,38 +162,8 @@ app.controller('MainController', function($scope, $interval) {
       //if play resume generating random colours and compliments
       if($scope.play){
         var randomColor = $scope.randomRGB();
-        //push new colour to history
-        $scope.history.push(randomColor.fullrgb());
-        $("#thisrgb").attr("placeholder", randomColor.fullrgb());
-
         var randomComplementColor = randomColor.complement();
-
-        var theme;
-        if(randomColor.balance()<390){
-          theme = 'white';
-          $('#thisrgb').addClass('whitePlaceHolder');
-        }else{
-          theme = 'black';
-          $('#thisrgb').removeClass('whitePlaceHolder');
-        }
-
-        $("b1").css({'color':theme});
-        $("T1").css({'color':theme});
-        $("t2").css({'color':theme});
-        $('.loading').css({'background-color':theme});
-        $('label').css({'border-color':'transparent transparent transparent ' + theme});
-
-        $("#result").html(randomComplementColor.fullrgb());
-        $scope.compColor1 = randomColor.fullrgb();
-        $scope.compColor2 = randomComplementColor.fullrgb();
-
         $scope.applyGradient(randomColor, randomComplementColor);
-        $scope.doCompliment();
-
-        //Limit history to 20 colours to save memory
-        if($scope.history.length > 20){
-          $scope.history.shift()
-        }
       }
   }, 4000);
 
@@ -260,8 +263,6 @@ app.controller('MainController', function($scope, $interval) {
     this.compliment = this.compliments[Math.floor(Math.random() * this.compliments.length)];
     }
     while (this.compliment===this.lastCompliment);
-
-
 
     this.lastCompliment = this.compliment
     $('#randcompliment').animateCss('jello', function() {
