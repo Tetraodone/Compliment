@@ -1,0 +1,18 @@
+{
+  "logger": {
+    "title": "Remote Sync"
+  },
+  "transport": "ftp",
+  "uploadOnSave": false,
+  "useAtomicWrites": false,
+  "deleteLocal": false,
+  "hostname": "coreybourke.xyz",
+  "target": "/public_html/compliment/",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "Corey@coreybourke.xyz",
+  "password": "Skangel98ab",
+  "watch": []
+}

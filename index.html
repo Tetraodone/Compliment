@@ -36,13 +36,12 @@
 		<br>
 	  <input type="text" id="thisrgb" onchange="errorhandle()" ng-model="rgbInput" placeholder="{{inputPH}}" required my-directive>
 		<br>
-		{{rgbInput.$valid}}
 		<button class="jscolor{valueElement:'hexval'}" onblur="hexToRgb()">Colour Picker</button>
 		<button id="submit_button" ng-click="rgbSubmit()">Compliment Me!</button>
 		</form>
 		<div class="playpause">
 			<abbr title="Play/Pause random compliments.">
-			<input type="checkbox" value="None" id="playpause" name="check" ng-click="pause();"/>
+			<input type="checkbox" value="None" id="playpause" ng-model='pp' name="check" ng-click="pause();"/>
 			<label for="playpause" tabindex=1></label>
 			</abbr>
 		</div>

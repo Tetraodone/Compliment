@@ -149,8 +149,13 @@ app.controller('mController', function($scope, $interval) {
       }
     }
 
-    $scope.pause = function(){
-      this.play = !this.play;
+    $scope.pause = function(pause){
+      if ($('#playpause').is(':checked')) {
+        this.play = false;
+      } else {
+        this.play = true;
+      }
+
       //using opacity because animation needs to continue playing
       if(this.play){
         $('.loading').css({'opacity':'.3'})
@@ -171,6 +176,8 @@ app.controller('mController', function($scope, $interval) {
 
     $scope.rgbSubmit = function(){
       if ($scope.validate($scope.rgbInput)){
+        $("#playpause").prop( "checked", true );
+        $scope.pause();
         var _rgb = $scope.rgbInput;
         _rgb = _rgb.replace("rgb(", "");
         _rgb = _rgb.replace(")", "");
@@ -178,9 +185,9 @@ app.controller('mController', function($scope, $interval) {
         var userColor = new $scope.rgb(_rgb[0], _rgb[1], _rgb[2]);
         var complementColor = userColor.complement();
         $scope.applyGradient(userColor, complementColor);
-        $scope.play = false;
+        //$scope.play = false;
       } else {
-        alert('Invalid Input');
+        alert('Invalid Input. rgb(000,000,000) or 000,000,00 are accepted.');
       }
     }
 
