@@ -109,9 +109,13 @@ app.controller('MainController', function($scope, $interval) {
 
     }
 
+    $scope.applyGradient = function(o,c){
+      grad = "linear-gradient( 0deg, " + o.fullrgb() + ", " + c.fullrgb() + ")";
+      $("body").css({'background': grad, 'background-size': '200% 200%', '-webkit-animation': 'AnimationName 4s ease infinite', 'animation': 'AnimationName 4s ease infinite', 'transition': 'opacity 5s ease-in-out'});
+    }
+
     $scope.pause = function(){
       this.play = !this.play;
-
       //using opacity because animation needs to continue playing
       if(this.play){
         $('.loading').css({'opacity':'.3'})
@@ -131,27 +135,26 @@ app.controller('MainController', function($scope, $interval) {
 
         var randomComplementColor = randomColor.complement();
 
+        var theme;
         if(randomColor.balance()<390){
-          $("b1").css({'color':'white'});
-          $("T1").css({'color':'white'});
-          $("t2").css({'color':'white'});
+          theme = 'white';
           $('#thisrgb').addClass('whitePlaceHolder');
-          $('.loading').css({'background-color':'white'});
-          $('label').css({'border-color':'transparent transparent transparent white'});
         }else{
-          $("b1").css({'color':'black'});
-          $("T1").css({'color':'black'});
-          $("t2").css({'color':'black'});
+          theme = 'black';
           $('#thisrgb').removeClass('whitePlaceHolder');
-          $('.loading').css({'background-color':'black'});
-          $('label').css({'border-color':'transparent transparent transparent black'});
         }
 
+        $("b1").css({'color':theme});
+        $("T1").css({'color':theme});
+        $("t2").css({'color':theme});
+        $('.loading').css({'background-color':theme});
+        $('label').css({'border-color':'transparent transparent transparent ' + theme});
+
         $("#result").html(randomComplementColor.fullrgb());
-        grad = "linear-gradient( 0deg, " + randomColor.fullrgb() + ", " + randomComplementColor.fullrgb() + ")";
         $scope.compColor1 = randomColor.fullrgb();
         $scope.compColor2 = randomComplementColor.fullrgb();
-        $("body").css({'background': grad, 'background-size': '200% 200%', '-webkit-animation': 'AnimationName 4s ease infinite', 'animation': 'AnimationName 4s ease infinite', 'transition': 'opacity 5s ease-in-out'});
+
+        $scope.applyGradient(randomColor, randomComplementColor);
         $scope.doCompliment();
 
         //Limit history to 20 colours to save memory
@@ -163,7 +166,6 @@ app.controller('MainController', function($scope, $interval) {
 
   $scope.hextToComplimentary = function(){
     var rgb = $('#thisrgb').val();
-
 
     //test input
     if(rgb==null){
@@ -250,7 +252,7 @@ app.controller('MainController', function($scope, $interval) {
       $('input').css({'color':'white', 'border-color':'white !important'});
       $('label').css({'border-color':'white'});
     }
-      setcolour(compcolor)
+      $scope.setcolour(compcolor);
   }
 
   $scope.doCompliment = function (){
@@ -265,6 +267,17 @@ app.controller('MainController', function($scope, $interval) {
     $('#randcompliment').animateCss('jello', function() {
       $('#randcompliment').removeClass('animated jello');
     });
+  }
+
+  $scope.setcolour = function (compcolor){
+    //get main rgb
+    var myrgb = $('#thisrgb').val();
+    myrgb = "rgb(" + myrgb + ")";
+    var grad = "linear-gradient( 0deg, " + myrgb + ", " + compcolor + ")";
+    $("body").css("background", grad);
+    $("body").css({'background': grad, 'background-size': '200% 200%', '-webkit-animation': 'AnimationName 4s ease infinite', 'animation': 'AnimationName 4s ease infinite'});
+    $("#result").html(compcolor);
+    compliment();
   }
 
 });

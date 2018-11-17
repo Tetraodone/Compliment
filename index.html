@@ -136,17 +136,6 @@ function hexToRgb(){
 	    setcolour(bgstyle)
 	  }
 
-	  function setcolour(compcolor){
-	    //get main rgb
-	    var myrgb = $('#thisrgb').val();
-	    myrgb = "rgb(" + myrgb + ")";
-	    var grad = "linear-gradient( 0deg, " + myrgb + ", " + compcolor + ")";
-	    $("body").css("background", grad);
-	    $("body").css({'background': grad, 'background-size': '200% 200%', '-webkit-animation': 'AnimationName 4s ease infinite', 'animation': 'AnimationName 4s ease infinite'});
-	    $("#result").html(compcolor);
-	    compliment();
-	  }
-
 		function compliment(){
 		  var choice = compliments[Math.floor(Math.random() * compliments.length)];
 		  $("#randcompliment").html(choice);
