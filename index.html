@@ -12,7 +12,7 @@
 		<meta charset="UTF-8">
 	</head>
 
-	<body id="body"  ng-app="Compliment" ng-controller="MainController">
+	<body id="body"  ng-app="Compliment" ng-controller="mController">
 		<span class="swatch">
 			<div class="topColor" style="background:{{compColor1}}">
 				<b2>{{compColor1}}</b2>
@@ -34,10 +34,11 @@
 		<form id="mainform">
 	  <label for="fname"><b1>Main Colour</b1></label>
 		<br>
-	  <input type="text" id="thisrgb" onchange="errorhandle()" placeholder="{{inputPH}}">
+	  <input type="text" id="thisrgb" onchange="errorhandle()" ng-model="rgbInput" placeholder="{{inputPH}}" required my-directive>
 		<br>
+		{{rgbInput.$valid}}
 		<button class="jscolor{valueElement:'hexval'}" onblur="hexToRgb()">Colour Picker</button>
-		<button id="submit_button" ng-click="hexToComplimentary()">Compliment Me!</button>
+		<button id="submit_button" ng-click="rgbSubmit()">Compliment Me!</button>
 		</form>
 		<div class="playpause">
 			<abbr title="Play/Pause random compliments.">

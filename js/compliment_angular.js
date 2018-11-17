@@ -6,8 +6,9 @@ app.filter('reverse', function() {
   };
 });
 
-app.controller('MainController', function($scope, $interval) {
+app.controller('mController', function($scope, $interval) {
     $scope.history = [];
+    $scope.validInput = false;
     $scope.lastCompliment = '';
     $scope.inputPH='rgb()';
     $scope.play = true;
@@ -103,6 +104,7 @@ app.controller('MainController', function($scope, $interval) {
         b = Math.round(b * 255);
         return new $scope.rgb(r,g,b);
       }
+
       this.balance = function(){
         return (_r + _g + _b);
       }
@@ -165,110 +167,34 @@ app.controller('MainController', function($scope, $interval) {
         var randomComplementColor = randomColor.complement();
         $scope.applyGradient(randomColor, randomComplementColor);
       }
-  }, 4000);
+    }, 4000);
 
-  $scope.hextToComplimentary = function(){
-    var rgb = $('#thisrgb').val();
-
-    //test input
-    if(rgb==null){
-      alert("Please enter a valid RGB Value!");
-      console.log("error: Invalid Input.");
-      return;
-    }
-    $("#submit_button").attr('disabled', 'enabled');
-    // Get array of RGB values
-    rgb = rgb.replace("rgb(", "");
-    rgb = rgb.replace(")", "");
-    rgb = rgb.replace(/[^\d,]/g, '').split(',');
-
-    var r = rgb[0], g = rgb[1], b = rgb[2];
-
-    // Convert RGB to HSL
-    // Adapted from answer by 0x000f http://stackoverflow.com/a/34946092/4939630
-    r /= 255.0;
-    g /= 255.0;
-    b /= 255.0;
-    var max = Math.max(r, g, b);
-    var min = Math.min(r, g, b);
-    var h, s, l = (max + min) / 2.0;
-
-    if(max == min) {
-      h = s = 0;  //achromatic
-    } else {
-      var d = max - min;
-      s = (l > 0.5 ? d / (2.0 - max - min) : d / (max + min));
-
-      if(max == r && g >= b) {
-        h = 1.0472 * (g - b) / d ;
-      } else if(max == r && g < b) {
-        h = 1.0472 * (g - b) / d + 6.2832;
-      } else if(max == g) {
-        h = 1.0472 * (b - r) / d + 2.0944;
-      } else if(max == b) {
-        h = 1.0472 * (r - g) / d + 4.1888;
+    $scope.rgbSubmit = function(){
+      if ($scope.validate($scope.rgbInput)){
+        var _rgb = $scope.rgbInput;
+        _rgb = _rgb.replace("rgb(", "");
+        _rgb = _rgb.replace(")", "");
+        _rgb = _rgb.replace(/[^\d,]/g, '').split(',');
+        var userColor = new $scope.rgb(_rgb[0], _rgb[1], _rgb[2]);
+        var complementColor = userColor.complement();
+        $scope.applyGradient(userColor, complementColor);
+        $scope.play = false;
+      } else {
+        alert('Invalid Input');
       }
     }
 
-    h = h / 6.2832 * 360.0 + 0;
+    $scope.doCompliment = function (){
+      do {
+      this.compliment = this.compliments[Math.floor(Math.random() * this.compliments.length)];
+      }
+      while (this.compliment===this.lastCompliment);
 
-    // Shift hue to opposite side of wheel and convert to [0-1] value
-    h+= 180;
-    if (h > 360) { h -= 360; }
-    h /= 360;
-
-    // Convert h s and l values into r g and b values
-    // Adapted from answer by Mohsen http://stackoverflow.com/a/9493060/4939630
-    if(s === 0){
-      r = g = b = l; // achromatic
-    } else {
-      var hue2rgb = function hue2rgb(p, q, t){
-        if(t < 0) t += 1;
-        if(t > 1) t -= 1;
-        if(t < 1/6) return p + (q - p) * 6 * t;
-        if(t < 1/2) return q;
-        if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-        return p;
-      };
-
-      var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-      var p = 2 * l - q;
-
-      r = hue2rgb(p, q, h + 1/3);
-      g = hue2rgb(p, q, h);
-      b = hue2rgb(p, q, h - 1/3);
+      this.lastCompliment = this.compliment
+      $('#randcompliment').animateCss('jello', function() {
+        $('#randcompliment').removeClass('animated jello');
+      });
     }
-
-    r = Math.round(r * 255);
-    g = Math.round(g * 255);
-    b = Math.round(b * 255);
-    var rgbstring = r + "," + g + "," + b;
-
-    var compcolor = "rgb(" + rgbstring + ")";
-      //bgstyle = "\"" + bgstyle + "\""
-    var balance = r + g + b;
-    if(balance<390){
-      $("b1").css({'color':'white'});
-      $("t1").css({'color':'white'});
-      $("b2").css({'color':'white'});
-      $("t2").css({'color':'white'});
-      $('input').css({'color':'white', 'border-color':'white !important'});
-      $('label').css({'border-color':'white'});
-    }
-      $scope.setcolour(compcolor);
-  }
-
-  $scope.doCompliment = function (){
-    do {
-    this.compliment = this.compliments[Math.floor(Math.random() * this.compliments.length)];
-    }
-    while (this.compliment===this.lastCompliment);
-
-    this.lastCompliment = this.compliment
-    $('#randcompliment').animateCss('jello', function() {
-      $('#randcompliment').removeClass('animated jello');
-    });
-  }
 
   $scope.setcolour = function (compcolor){
     //get main rgb
@@ -280,5 +206,34 @@ app.controller('MainController', function($scope, $interval) {
     $("#result").html(compcolor);
     compliment();
   }
+  $scope.validate = function(value){
+      var type = true;
+      var valtest = value.replace("rgb(", "");
+      valtest = valtest.replace(")", "");
+      valtest = valtest.replace(/[^\d,]/g, '').split(',');
 
+      if (isNaN(valtest)){
+        console.log('A Number!');
+        type = true;
+      } else {
+        type = false;
+      }
+      valtest = value;
+      valtest = valtest.replace(/[^\d,]/g, '').split(',');
+
+      if (isNaN(valtest)){
+        console.log('A Number!');
+        type = true;
+      } else {
+        type = false;
+      }
+      if (type){
+        console.log('Valid!')
+        return true;
+      } else {
+        console.log('notvalid');
+        return false
+      }
+      return value;
+    }
 });
