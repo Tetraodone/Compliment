@@ -128,6 +128,7 @@ app.controller('mController', function($scope, $interval) {
       $("b1").css({'color':theme});
       $("T1").css({'color':theme});
       $("t2").css({'color':theme});
+      $("t3").css({'color':theme});
       $('.loading').css({'background-color':theme});
       $('label').css({'border-color':'transparent transparent transparent ' + theme});
 
@@ -243,4 +244,55 @@ app.controller('mController', function($scope, $interval) {
       }
       return value;
     }
+    $scope.removeCompliment = function(_comp){
+      if (confirm('Are you sure you want to delete this compliment?')) {
+        if($scope.compliments.length<=2){
+          alert('Hey! I need at least two compliments!')
+        } else {
+          for (var i=$scope.compliments.length-1; i>=0; i--) {
+              if ($scope.compliments[i] === _comp) {
+                  $scope.compliments.splice(i, 1);
+                  localStorage.setItem("compliments", JSON.stringify($scope.compliments));
+                  break;
+              }
+          }
+        }
+      } else {
+          // Do nothing!
+      }
+    }
+    $scope.profanity = function(text){
+      var swears = ['fuck','shit', 'balls', 'cunt', 'bitch', 'penis', 'dick', 'die'];
+
+      swears.forEach(function(swear) {
+        if (text.includes(swear)){
+          console.log('Naughty!');
+          $('#pageTitle').html('<br> INSULTS')
+        }
+      });
+    }
+    // at the bottom of your controller
+    $scope.saveCompliments = function(){
+      if (typeof(Storage) !== "undefined") {
+         localStorage.setItem("compliments", JSON.stringify($scope.compliments));
+      } else {
+         // Sorry! No Web Storage support..
+         console.log('Error: No local storage support')
+      }
+    }
+
+    var init = function () {
+      if (typeof(Storage) !== "undefined") {
+         if(JSON.parse(localStorage.getItem("compliments")) === null){
+           console.log('No Compliments saved')
+         } else {
+           var userCompliments = JSON.parse(localStorage.getItem("compliments"));
+           $scope.compliments = userCompliments;
+         }
+      } else {
+         // Sorry! No Web Storage support..
+      }
+    };
+    // and fire it after definition
+    init();
 });

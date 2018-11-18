@@ -7,7 +7,7 @@
   "useAtomicWrites": false,
   "deleteLocal": false,
   "hostname": "coreybourke.xyz",
-  "target": "/public_html/compliment/",
+  "target": "/compliment",
   "ignore": [
     ".remote-sync.json",
     ".git/**"

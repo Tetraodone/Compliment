@@ -13,6 +13,12 @@
 	</head>
 
 	<body id="body"  ng-app="Compliment" ng-controller="mController">
+		<div class="compManage">
+			<div class="headercontainer" ng-repeat="compliment in compliments"><b2 ng-click="removeCompliment(compliment);saveCompliments;">{{compliment}}</b2></div><br>
+			<textarea rows="4" cols="50" ng-model='newCompliment'>Enter a new Compliment!</textarea><br>
+			<button id="complimentButton" ng-click='compliments.push(newCompliment);profanity(newCompliment);saveCompliments();'>Save Compliment</button><br>
+			<button id="complimentButton" onclick="$('.compManage').hide('.3');">Close</button>
+		</div>
 		<span class="swatch">
 			<div class="topColor" style="background:{{compColor1}}">
 				<b2>{{compColor1}}</b2>
@@ -30,7 +36,7 @@
 		<div class="miniheader">
 			<span class="headercontainer" ng-repeat="color in history | reverse" id="history"><b2>{{color}}</b2></span>
 		</div>
-		<div class="landtext"><t1><br>COMPLIMENT</t1></div>
+		<div class="landtext"><t1 id='pageTitle'><br>COMPLIMENT</t1></div>
 		<form id="mainform">
 	  <label for="fname"><b1>Main Colour</b1></label>
 		<br>
@@ -55,9 +61,11 @@
 			<div class="compcontainer">
 					<t2 id="randcompliment">{{compliment}}</t2>
 			</div>
+			<br>
+			<button id="complimentButton" onclick="$('.compManage').show('.3');">Compliment List</button>
 
 			<br> <br>
-			<b1>Compimentary Color</b1><br><b1 id="result"></b1>
+			<b1>Compimentary Color</b1><br><t3 id="result"></t3>
 			</div>
 
 			<div class="footer">
