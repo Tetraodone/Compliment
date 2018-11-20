@@ -1,4 +1,16 @@
 # Compliment
-Compliment is a simple web application that Generates complementary colours as well as random Compliments.
+Compliment is a single web application that generates random complementary colour gradients and compliments the user.
 
-Built with AngularJS.
+## Current Features
+- Generate random rgb() colors
+- Calculate complementary colours (Both random and user input)
+- Choose random compliment from pre-defined list
+- Add to and delete compliments from pre-defined list
+- Profanity filter (Currently implimented via hard coded array) (Profanity triggers cosmetic change)
+- Colour picker to choose rgb() color
+
+## Planned features
+- Implement hex and hsl color formats
+- Improved color picker
+
+*Using AngularJS*
