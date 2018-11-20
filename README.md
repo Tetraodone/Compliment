@@ -7,7 +7,7 @@ Compliment is a single web application that generates random complementary colou
 - Choose random compliment from pre-defined list
 - Add to and delete compliments from pre-defined list
 - Profanity filter (Currently implimented via hard coded array) (Profanity triggers cosmetic change)
-- Colour picker to choose rgb() color
+- Colour picker to choose rgb() color (External Framework)
 
 ## Planned features
 - Implement hex and hsl color formats
