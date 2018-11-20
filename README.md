@@ -12,5 +12,8 @@ Compliment is a single web application that generates random complementary colou
 ## Planned features
 - Implement hex and hsl color formats
 - Improved color picker
+- Favourite colors and color combinations
+- New background animations 
+- Different color wheel variants (Analogous, split-complements, Triadic)
 
 *Using AngularJS*
