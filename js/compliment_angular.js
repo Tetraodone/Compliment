@@ -281,6 +281,12 @@ app.controller('mController', function($scope, $interval) {
       }
     }
 
+    $scope.submitHistory = function(color){
+      $scope.rgbInput = color;
+      $scope.rgbSubmit();
+
+    }
+
     var init = function () {
       if (typeof(Storage) !== "undefined") {
          if(JSON.parse(localStorage.getItem("compliments")) === null){

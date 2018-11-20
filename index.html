@@ -34,7 +34,7 @@
 			</label>
 		</span>
 		<div class="miniheader">
-			<span class="headercontainer" ng-repeat="color in history | reverse" id="history"><b2>{{color}}</b2></span>
+			<span class="headercontainer" ng-repeat="color in history | reverse" id="history" ng-click="submitHistory(color)"><b2>{{color}}</b2></span>
 		</div>
 		<div class="landtext"><t1 id='pageTitle'><br>COMPLIMENT</t1></div>
 		<form id="mainform">
